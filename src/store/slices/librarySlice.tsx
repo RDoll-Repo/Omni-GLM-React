@@ -15,6 +15,7 @@ export const fetchLibrary = createAsyncThunk(
     'oglm/library',
     async (_, thunkApi) => {
         try {
+            console.log("HI")
             const response = await fetchLibraryAsync()
 
             console.log(response)

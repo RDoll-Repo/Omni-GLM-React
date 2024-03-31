@@ -1,12 +1,10 @@
-import axios from "axios";
+import axios, { AxiosHeaders } from "axios";
 
 const api = axios.create({
     baseURL: "http://localhost:5245",
-    withCredentials: false
+    withCredentials: true
 })
 
-api.interceptors.response.use(
 
-)
 
 export default api

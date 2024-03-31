@@ -9,7 +9,7 @@ export const DemoPanel = () => {
     const { library } = useSelector((state: RootState) => state.library)
 
     useEffect(() => {
-        dispatch(fetchLibrary)
+        dispatch(fetchLibrary())
     }, [dispatch])
 
     return (

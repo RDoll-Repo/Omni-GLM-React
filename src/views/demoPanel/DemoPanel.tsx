@@ -25,12 +25,12 @@ export const DemoPanel = () => {
 
 
     return(
-        <Grid container spacing={12} direction="row">
-            <Grid item xs={9}>
+        <Grid container spacing={4} direction="row">
+            <Grid item xs={8}>
                 <DemoPanelHeader onClick={setPanelStatus}/>
                 <DemoPanelLibraryList games={library}/>
             </Grid>
-            <Grid item xs={3}>
+            <Grid item xs={4}>
                 <DemoPanelInputForm mode={panelStatus} game={currentGame}/>
             </Grid>
         </Grid>

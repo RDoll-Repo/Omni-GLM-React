@@ -1,7 +1,26 @@
-import { Typography } from "@mui/material"
+import { Container, TextField, Typography } from "@mui/material"
+import { Game, PanelStatus } from "../../../Types"
 
-export const DemoPanelInputForm = () => {
+interface DemoPanelInputFormProps {
+    mode: PanelStatus
+    game: Game | null
+}
+
+export const DemoPanelInputForm = (props: DemoPanelInputFormProps) => {
+    const { mode, game } = props
+    
     return (
-        <Typography>I'm a form that you won't see unless your creating or editing</Typography>
+        <Container sx={{background: "grey", padding: "24px 12px"}}>
+            <Typography mb={6}>
+                {mode == PanelStatus.Editing ? "Edit Game" : "Add Game"}
+            </Typography>
+            <TextField
+                id="title-textfield"
+                label="Title"
+                defaultValue={mode == PanelStatus.Editing ? game?.title : ""}
+                color="secondary"
+                sx={{background: "white"}}
+            />
+        </Container>
     )
 }

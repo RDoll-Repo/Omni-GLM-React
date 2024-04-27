@@ -6,13 +6,14 @@ import { useSelector } from "react-redux"
 import { DemoPanelHeader } from "./components/DemoPanelHeader"
 import { DemoPanelLibraryList } from "./components/DemoPanelLibraryList"
 import { DemoPanelInputForm } from "./components/DemoPanelInputForm"
-import { PanelStatus } from "../../Types"
+import { Game, PanelStatus } from "../../Types"
 
 export const DemoPanel = () => {
     const dispatch = useAppDispatch()
     const { library } = useSelector((state: RootState) => state.library)
 
     const [panelStatus, setPanelStatus] = useState<PanelStatus>(PanelStatus.Viewing)
+    const [currentGame, setCurrentGame] = useState<Game | null>(null)
 
     useEffect(() => {
         dispatch(fetchLibrary())
@@ -30,7 +31,7 @@ export const DemoPanel = () => {
                 <DemoPanelLibraryList games={library}/>
             </Grid>
             <Grid item xs={3}>
-                <DemoPanelInputForm />
+                <DemoPanelInputForm mode={panelStatus} game={currentGame}/>
             </Grid>
         </Grid>
     )

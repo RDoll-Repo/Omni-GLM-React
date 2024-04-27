@@ -1,4 +1,4 @@
-import { Container, FormControl, FormControlLabel, FormLabel, Radio, RadioGroup, Stack, TextField, Typography } from "@mui/material"
+import { Button, Container, FormControl, FormControlLabel, FormLabel, MenuItem, Radio, RadioGroup, Select, Stack, TextField, Typography } from "@mui/material"
 import { Game, PanelStatus } from "../../../Types"
 
 interface DemoPanelInputFormProps {
@@ -45,8 +45,39 @@ export const DemoPanelInputForm = (props: DemoPanelInputFormProps) => {
                 label="Hours"
                 type="number"
                 size="small"
-                sx={{background: "white"}}
+                sx={{background: "white", mt:"16px"}}
             />
+            <Stack direction="row" justifyContent="space-evenly" mt={2}>
+                <Select label="Console" sx={{background: "white", minWidth: "160px"}}>
+                    <MenuItem value="">
+                        NA
+                    </MenuItem>
+                </Select>
+                <Select label="Genre" sx={{background: "white", minWidth: "160px"}}>
+                    <MenuItem value="">
+                        NA
+                    </MenuItem>
+                </Select>
+            </Stack>
+            <TextField
+                label="Date Added"
+                defaultValue={mode == PanelStatus.Editing ? game?.title : ""}
+                color="secondary"
+                sx={{background: "white", mt: "16px"}}
+                fullWidth
+            />
+            <TextField
+                id="title-textfield"
+                label="Date Complete"
+                defaultValue={mode == PanelStatus.Editing ? game?.title : ""}
+                color="secondary"
+                sx={{background: "white", mt: "16px"}}
+                fullWidth
+            />
+            <Stack direction="row" justifyContent="space-evenly" mt={2}>
+                <Button variant="contained">Cancel</Button>
+                <Button variant="contained">Confirm</Button>
+            </Stack>
         </Container>
     )
 }

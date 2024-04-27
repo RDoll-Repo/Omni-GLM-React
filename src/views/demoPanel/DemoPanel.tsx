@@ -14,6 +14,7 @@ export const DemoPanel = () => {
 
     const [panelStatus, setPanelStatus] = useState<PanelStatus>(PanelStatus.Viewing)
     const [currentGame, setCurrentGame] = useState<Game | null>(null)
+    // State for refetching after API requests
 
     useEffect(() => {
         dispatch(fetchLibrary())

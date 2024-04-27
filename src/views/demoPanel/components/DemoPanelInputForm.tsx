@@ -1,7 +1,8 @@
 import { Button, Container, FormControl, FormControlLabel, FormLabel, Radio, RadioGroup, Stack, TextField, Typography } from "@mui/material"
-import { Game, PanelStatus } from "../../../types/LibraryTypes"
+import { Game, GameStatus, PanelStatus } from "../../../types/LibraryTypes"
 import { useCallback, useState } from "react"
-import { LibraryTitleInput } from "./inputs/LibraryTitleInput"
+import { GameTitleInput } from "./inputs/GameTitleInput"
+import { GameStatusInput } from "./inputs/GameStatusInput"
 
 interface DemoPanelInputFormProps {
     mode: PanelStatus
@@ -11,13 +12,12 @@ interface DemoPanelInputFormProps {
 export const DemoPanelInputForm = (props: DemoPanelInputFormProps) => {
     const { mode, game } = props
 
-    const [titleInput, setTitleInput] = useState<string>(
-        game?.title ?? ""
-    )
+    const [titleInput, setTitleInput] = useState(game?.title ?? "")
+    const [statusInput, setStatusInput] = useState(game?.status ?? GameStatus.Backlog)
 
     const [titleIsValid, setTitleIsValid] = useState(true)
 
-    const submit = useCallback(() => {
+    const submitCreate = useCallback(() => {
         let readyToSubmit = true
 
         // Go through inputs individually, bail if any fail
@@ -29,6 +29,7 @@ export const DemoPanelInputForm = (props: DemoPanelInputFormProps) => {
         }
 
         if (readyToSubmit) {
+            // Compose payload
             console.log("Submit")
         } else {
             console.log("Nope")
@@ -41,20 +42,13 @@ export const DemoPanelInputForm = (props: DemoPanelInputFormProps) => {
             <Typography mb={6}>
                 {mode == PanelStatus.Editing ? "Edit Game" : "Add Game"}
             </Typography>
-            <LibraryTitleInput 
-                onChange={setTitleInput} 
+            <GameTitleInput 
+                handleChange={setTitleInput} 
                 value={titleInput}
                 isInErrorState={!titleIsValid}
             />
             <Stack direction="row" justifyContent="space-between" mt={2}>
-                <FormControl>
-                    <FormLabel id="radio-status">Status</FormLabel>
-                    <RadioGroup>
-                        <FormControlLabel value={"Backlog"} control={<Radio />} label={"Backlog"} />
-                        <FormControlLabel value={"Playing"} control={<Radio />} label={"Playing"} />
-                        <FormControlLabel value={"Finished"} control={<Radio />} label={"Finished"} />
-                    </RadioGroup>
-                </FormControl>
+                <GameStatusInput value={statusInput} handleChange={setStatusInput}/>
                 <FormControl>
                     <FormLabel id="radio-format">Format</FormLabel>
                     <RadioGroup title="Format">
@@ -100,7 +94,7 @@ export const DemoPanelInputForm = (props: DemoPanelInputFormProps) => {
             />
             <Stack direction="row" justifyContent="space-evenly" mt={2}>
                 <Button variant="contained">Cancel</Button>
-                <Button variant="contained" onClick={submit}>Confirm</Button>
+                <Button variant="contained" onClick={submitCreate}>Confirm</Button>
             </Stack>
         </Container>
     )

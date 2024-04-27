@@ -1,7 +1,7 @@
 export interface Game {
     id: string
     title: string
-    status: string
+    status: GameStatus
     console: string
     format: string
     genre: string
@@ -19,4 +19,10 @@ export enum PanelStatus {
     Viewing,
     Adding,
     Editing
+}
+
+export enum GameStatus {
+    Backlog,
+    Playing,
+    Finished
 }

@@ -36,3 +36,9 @@ export interface ApiResponseWithMeta<TMeta, TData> {
 export interface SearchResponseMeta {
     count: number
 }
+
+export enum PanelStatus {
+    Viewing,
+    Adding,
+    Editing
+}

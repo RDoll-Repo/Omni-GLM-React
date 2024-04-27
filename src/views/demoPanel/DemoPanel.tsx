@@ -1,4 +1,4 @@
-import { Grid, Typography } from "@mui/material"
+import { Grid } from "@mui/material"
 import { useEffect, useState } from "react"
 import { RootState, useAppDispatch } from "../../store/store"
 import { fetchLibrary } from "../../store/slices/librarySlice"
@@ -22,17 +22,14 @@ export const DemoPanel = () => {
         console.log(panelStatus)
     }, [panelStatus])
 
-    const games = library.map((g, index) => {
-        return (<Typography key={index}>{g.title}</Typography>)
-    })
 
     return(
         <Grid container spacing={12} direction="row">
-            <Grid item xs={8}>
+            <Grid item xs={9}>
                 <DemoPanelHeader onClick={setPanelStatus}/>
-                <DemoPanelLibraryList />
+                <DemoPanelLibraryList games={library}/>
             </Grid>
-            <Grid item xs={4}>
+            <Grid item xs={3}>
                 <DemoPanelInputForm />
             </Grid>
         </Grid>

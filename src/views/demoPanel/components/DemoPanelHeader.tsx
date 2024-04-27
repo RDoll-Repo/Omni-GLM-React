@@ -10,7 +10,7 @@ export const DemoPanelHeader = (props: DemoPanelHeaderProps) => {
     const { onClick } = props
 
     return(
-        <Stack direction="row" spacing={8}>
+        <Stack direction="row" justifyContent="space-between">
             <Typography variant="h3">
                 OMNI-GLM Demo Panel
             </Typography>

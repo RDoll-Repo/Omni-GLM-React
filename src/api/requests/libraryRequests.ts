@@ -1,8 +1,8 @@
-import { Game } from "../../Types"
+import { ApiResponseWithMeta, SearchLibraryReponse, SearchResponseMeta } from "../../Types"
 import api from "../api"
 
 export const fetchLibraryAsync = async () => {
-    const response = await api.get<Game[]>(
+    const response = await api.get<ApiResponseWithMeta<SearchResponseMeta, SearchLibraryReponse>>(
         'library'
     )
 

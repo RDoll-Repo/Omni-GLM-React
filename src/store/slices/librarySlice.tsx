@@ -38,7 +38,7 @@ export const librarySlice = createSlice({
            
             if (action.payload) {
                 console.log("OHAI")
-                state.library = action.payload
+                state.library = action.payload.data.games
             }
         })
     }

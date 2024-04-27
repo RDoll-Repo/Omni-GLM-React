@@ -1,4 +1,4 @@
-import { Button, List } from "@mui/material"
+import { Button, List, Typography } from "@mui/material"
 import { useEffect } from "react"
 import { RootState, useAppDispatch } from "./store/store"
 import { fetchLibrary } from "./store/slices/librarySlice"
@@ -12,13 +12,20 @@ export const DemoPanel = () => {
         dispatch(fetchLibrary())
     }, [dispatch])
 
+    useEffect(() => {
+        console.log(library)
+    }, [library])
+
+    const games = library.length > 0 ? 
+        library.map((g, index) => {
+            return (<Typography key={index}>{g.title}</Typography>)
+        }) :
+        <></>
+
     return (
         <>
             <List>
-                <li>Hi</li>
-                <li>Game 2</li>
-                <li>Game 3</li>
-                <li>Game 4</li>
+                {games}
             </List>
             <Button>Add Game+</Button>
         </>

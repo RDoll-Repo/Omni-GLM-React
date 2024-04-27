@@ -19,3 +19,20 @@ export interface Game {
     updatedAt: Date
     dateCompleted: Date
 }
+
+export interface SearchLibraryReponse {
+    games: Game[]
+}
+
+export interface ApiResponse<TData> {
+    data: TData
+}
+
+export interface ApiResponseWithMeta<TMeta, TData> {
+    meta: TMeta
+    data: TData
+}
+
+export interface SearchResponseMeta {
+    count: number
+}

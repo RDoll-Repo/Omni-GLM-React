@@ -1,8 +1,11 @@
-import { Button, Grid, List, Typography } from "@mui/material"
+import { Grid, List, Stack, Typography } from "@mui/material"
 import { useEffect } from "react"
 import { RootState, useAppDispatch } from "../../store/store"
 import { fetchLibrary } from "../../store/slices/librarySlice"
 import { useSelector } from "react-redux"
+import { DemoPanelHeader } from "./DemoPanelHeader"
+import { DemoPanelLibraryList } from "./DemoPanelLibraryList"
+import { DemoPanelInputForm } from "./DemoPanelInputForm"
 
 export const DemoPanel = () => {
     const dispatch = useAppDispatch()
@@ -17,16 +20,13 @@ export const DemoPanel = () => {
     })
 
     return(
-        <Grid container spacing={12} direction="row">
+        <Grid container spacing={12}>
             <Grid item>
-                <List>
-                    {games}
-                </List>
+                <DemoPanelHeader />
+                <DemoPanelLibraryList />
             </Grid>
             <Grid item>
-                <List>
-                    {games}
-                </List>
+                <DemoPanelInputForm />
             </Grid>
         </Grid>
     )

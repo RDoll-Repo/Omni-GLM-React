@@ -1,5 +1,5 @@
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from "@mui/material"
-import { Game } from "../../../Types"
+import { Game } from "../../../types/LibraryTypes"
 import { DemoPanelLibraryListItem } from "./DemoPanelLibraryListItem"
 
 interface DemoPanelLibraryListProps {

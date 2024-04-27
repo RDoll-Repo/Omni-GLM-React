@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { Game } from "../../Types";
+import { Game } from "../../types/LibraryTypes";
 import { fetchLibraryAsync } from "../../api/requests/libraryRequests";
 
 export interface LibraryState {

@@ -1,5 +1,5 @@
 import { Button, Container, FormControl, FormControlLabel, FormLabel, MenuItem, Radio, RadioGroup, Select, Stack, TextField, Typography } from "@mui/material"
-import { Game, PanelStatus } from "../../../Types"
+import { Game, PanelStatus } from "../../../types/LibraryTypes"
 
 interface DemoPanelInputFormProps {
     mode: PanelStatus

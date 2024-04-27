@@ -1,5 +1,5 @@
 import { Button, Stack, Typography } from "@mui/material"
-import { PanelStatus } from "../../../Types"
+import { PanelStatus } from "../../../types/LibraryTypes"
 
 interface DemoPanelHeaderProps {
     onClick: (value: PanelStatus) => void

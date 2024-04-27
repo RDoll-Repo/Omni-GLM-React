@@ -1,5 +1,5 @@
 import { TableCell, TableRow, Typography } from "@mui/material"
-import { Game } from "../../../Types"
+import { Game } from "../../../types/LibraryTypes"
 
 interface DemoPanelLibraryListItemProps {
     game: Game

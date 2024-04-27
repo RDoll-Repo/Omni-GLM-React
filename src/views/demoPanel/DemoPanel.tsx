@@ -6,7 +6,7 @@ import { useSelector } from "react-redux"
 import { DemoPanelHeader } from "./components/DemoPanelHeader"
 import { DemoPanelLibraryList } from "./components/DemoPanelLibraryList"
 import { DemoPanelInputForm } from "./components/DemoPanelInputForm"
-import { Game, PanelStatus } from "../../Types"
+import { Game, PanelStatus } from "../../types/LibraryTypes"
 
 export const DemoPanel = () => {
     const dispatch = useAppDispatch()
@@ -35,15 +35,4 @@ export const DemoPanel = () => {
             </Grid>
         </Grid>
     )
-
-
-
-    // return (
-    //     <>
-    //         <List>
-    //             {games}
-    //         </List>
-    //         <Button>Add Game+</Button>
-    //     </>
-    // )
 }

@@ -12,15 +12,9 @@ export const DemoPanel = () => {
         dispatch(fetchLibrary())
     }, [dispatch])
 
-    useEffect(() => {
-        console.log(library)
-    }, [library])
-
-    const games = library.length > 0 ? 
-        library.map((g, index) => {
-            return (<Typography key={index}>{g.title}</Typography>)
-        }) :
-        <></>
+    const games = library.map((g, index) => {
+        return (<Typography key={index}>{g.title}</Typography>)
+    }) 
 
     return (
         <>

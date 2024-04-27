@@ -15,10 +15,8 @@ export const fetchLibrary = createAsyncThunk(
     'oglm/library',
     async (_, thunkApi) => {
         try {
-            console.log("HI")
             const response = await fetchLibraryAsync()
 
-            console.log(response)
             return response
         } catch (e) {
             console.log(e)
@@ -30,14 +28,11 @@ export const fetchLibrary = createAsyncThunk(
 export const librarySlice = createSlice({
     name: 'Library',
     initialState,
-    reducers: {
-
-    },
+    reducers: {},
     extraReducers: (builder) => {
         builder.addCase(fetchLibrary.fulfilled, (state, action) => {
            
             if (action.payload) {
-                console.log("OHAI")
                 state.library = action.payload.data.games
             }
         })

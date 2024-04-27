@@ -35,7 +35,9 @@ export const librarySlice = createSlice({
     },
     extraReducers: (builder) => {
         builder.addCase(fetchLibrary.fulfilled, (state, action) => {
+           
             if (action.payload) {
+                console.log("OHAI")
                 state.library = action.payload
             }
         })

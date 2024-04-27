@@ -1,5 +1,5 @@
 import { Button, Container, FormControl, FormControlLabel, FormLabel, Radio, RadioGroup, Stack, TextField, Typography } from "@mui/material"
-import { Game, GameStatus, PanelStatus } from "../../../types/LibraryTypes"
+import { CreateGamePayload, Game, GameFormat, GameStatus, PanelStatus } from "../../../types/LibraryTypes"
 import { useCallback, useState } from "react"
 import { GameTitleInput } from "./inputs/GameTitleInput"
 import { GameStatusInput } from "./inputs/GameStatusInput"
@@ -30,12 +30,23 @@ export const DemoPanelInputForm = (props: DemoPanelInputFormProps) => {
 
         if (readyToSubmit) {
             // Compose payload
+            const payload: CreateGamePayload = {
+                title: titleInput,
+                status: statusInput,
+                console: "temp",            // TEMP
+                format: GameFormat.Digital, // TEMP
+                genre: "TEMP",              // TEMP
+                length: 0,                  // TEMP
+                createdAt: null,            // TEMP
+                dateCompleted: null         // TEMP
+            }
+            console.log(payload)
             console.log("Submit")
         } else {
             console.log("Nope")
         }
 
-    }, [titleInput])
+    }, [titleInput, statusInput])
 
     return (
         <Container sx={{background: "lightgrey", padding: "24px 12px"}}>

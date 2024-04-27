@@ -3,7 +3,7 @@ export interface Game {
     title: string
     status: GameStatus
     console: string
-    format: string
+    format: GameFormat
     genre: string
     length: number
     createdAt: Date
@@ -13,6 +13,17 @@ export interface Game {
 
 export interface SearchLibraryReponse {
     games: Game[]
+}
+
+export interface CreateGamePayload {
+    title: string
+    status: GameStatus
+    console: string
+    format: GameFormat
+    genre: string
+    length: number
+    createdAt: Date | null
+    dateCompleted: Date | null
 }
 
 export enum PanelStatus {
@@ -25,4 +36,10 @@ export enum GameStatus {
     Backlog,
     Playing,
     Finished
+}
+
+export enum GameFormat {
+    Physical,
+    Digital,
+    Special
 }

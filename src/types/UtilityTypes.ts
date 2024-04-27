@@ -19,3 +19,7 @@ export interface ApiResponseWithMeta<TMeta, TData> {
 export interface SearchResponseMeta {
     count: number
 }
+
+export interface ApiPayload<TData> {
+    data: TData
+}

@@ -5,7 +5,7 @@ export const RouteContent = () => {
     return (
         <Routes>
             <Route
-                path="demoPanel"
+                path="/"
                 element={<DemoPanel />} />
         </Routes>
     )

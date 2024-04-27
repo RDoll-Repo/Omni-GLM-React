@@ -1,5 +1,7 @@
-import { Button, Container, FormControl, FormControlLabel, FormLabel, MenuItem, Radio, RadioGroup, Select, Stack, TextField, Typography } from "@mui/material"
+import { Button, Container, FormControl, FormControlLabel, FormLabel, Radio, RadioGroup, Stack, TextField, Typography } from "@mui/material"
 import { Game, PanelStatus } from "../../../types/LibraryTypes"
+import { useCallback, useState } from "react"
+import { LibraryTitleInput } from "./inputs/LibraryTitleInput"
 
 interface DemoPanelInputFormProps {
     mode: PanelStatus
@@ -8,19 +10,41 @@ interface DemoPanelInputFormProps {
 
 export const DemoPanelInputForm = (props: DemoPanelInputFormProps) => {
     const { mode, game } = props
-    
+
+    const [titleInput, setTitleInput] = useState<string>(
+        game?.title ?? ""
+    )
+
+    const [titleIsValid, setTitleIsValid] = useState(true)
+
+    const submit = useCallback(() => {
+        let readyToSubmit = true
+
+        // Go through inputs individually, bail if any fail
+        if (titleInput !== "") {
+            setTitleIsValid(true)
+        } else {
+            setTitleIsValid(false)
+            readyToSubmit = false
+        }
+
+        if (readyToSubmit) {
+            console.log("Submit")
+        } else {
+            console.log("Nope")
+        }
+
+    }, [titleInput])
+
     return (
-        <Container sx={{background: "grey", padding: "24px 12px"}}>
+        <Container sx={{background: "lightgrey", padding: "24px 12px"}}>
             <Typography mb={6}>
                 {mode == PanelStatus.Editing ? "Edit Game" : "Add Game"}
             </Typography>
-            <TextField
-                id="title-textfield"
-                label="Title"
-                defaultValue={mode == PanelStatus.Editing ? game?.title : ""}
-                color="secondary"
-                sx={{background: "white"}}
-                fullWidth
+            <LibraryTitleInput 
+                onChange={setTitleInput} 
+                value={titleInput}
+                isInErrorState={!titleIsValid}
             />
             <Stack direction="row" justifyContent="space-between" mt={2}>
                 <FormControl>
@@ -48,7 +72,7 @@ export const DemoPanelInputForm = (props: DemoPanelInputFormProps) => {
                 sx={{background: "white", mt:"16px"}}
             />
             <Stack direction="row" justifyContent="space-evenly" mt={2}>
-                <Select label="Console" sx={{background: "white", minWidth: "160px"}}>
+                {/* <Select label="Console" sx={{background: "white", minWidth: "160px"}}>
                     <MenuItem value="">
                         NA
                     </MenuItem>
@@ -57,7 +81,7 @@ export const DemoPanelInputForm = (props: DemoPanelInputFormProps) => {
                     <MenuItem value="">
                         NA
                     </MenuItem>
-                </Select>
+                </Select> */}
             </Stack>
             <TextField
                 label="Date Added"
@@ -76,7 +100,7 @@ export const DemoPanelInputForm = (props: DemoPanelInputFormProps) => {
             />
             <Stack direction="row" justifyContent="space-evenly" mt={2}>
                 <Button variant="contained">Cancel</Button>
-                <Button variant="contained">Confirm</Button>
+                <Button variant="contained" onClick={submit}>Confirm</Button>
             </Stack>
         </Container>
     )

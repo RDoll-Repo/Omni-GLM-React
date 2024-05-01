@@ -1,7 +1,7 @@
 import { Grid } from "@mui/material"
 import { useEffect, useState } from "react"
 import { RootState, useAppDispatch } from "../../store/store"
-import { fetchLibrary } from "../../store/slices/librarySlice"
+import { fetchConsoles, fetchLibrary } from "../../store/slices/librarySlice"
 import { useSelector } from "react-redux"
 import { DemoPanelHeader } from "./components/DemoPanelHeader"
 import { DemoPanelLibraryList } from "./components/DemoPanelLibraryList"
@@ -18,6 +18,7 @@ export const DemoPanel = () => {
 
     useEffect(() => {
         dispatch(fetchLibrary())
+        dispatch(fetchConsoles())
     }, [dispatch])
 
     useEffect(() => {

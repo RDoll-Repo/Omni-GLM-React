@@ -1,4 +1,4 @@
-import { Button, Container, Stack, TextField, Typography } from "@mui/material"
+import { Button, Container, MenuItem, Select, Stack, TextField, Typography } from "@mui/material"
 import { CreateGamePayload, Game, GameFormat, GameStatus, PanelStatus } from "../../../types/LibraryTypes"
 import { useCallback, useState } from "react"
 import { GameTitleInput } from "./inputs/GameTitleInput"
@@ -72,12 +72,12 @@ export const DemoPanelInputForm = (props: DemoPanelInputFormProps) => {
                 sx={{background: "white", mt:"16px"}}
             />
             <Stack direction="row" justifyContent="space-evenly" mt={2}>
-                {/* <Select label="Console" sx={{background: "white", minWidth: "160px"}}>
+                 <Select label="Console" sx={{background: "white", minWidth: "160px"}}>
                     <MenuItem value="">
                         NA
                     </MenuItem>
                 </Select>
-                <Select label="Genre" sx={{background: "white", minWidth: "160px"}}>
+                {/*<Select label="Genre" sx={{background: "white", minWidth: "160px"}}>
                     <MenuItem value="">
                         NA
                     </MenuItem>

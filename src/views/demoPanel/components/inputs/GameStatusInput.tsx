@@ -28,7 +28,7 @@ export const GameStatusInput = (props: GameStatusInputProps) => {
         <FormControl>
             <FormLabel id="radio-status">Status</FormLabel>
             <RadioGroup
-                name="format-radio-group"
+                name="status-radio-group"
                 value={value}
                 onChange={(event) => handleChange(
                     convertStatusStringToEnum(event.target.value)

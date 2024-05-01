@@ -1,8 +1,9 @@
-import { Button, Container, FormControl, FormControlLabel, FormLabel, Radio, RadioGroup, Stack, TextField, Typography } from "@mui/material"
+import { Button, Container, Stack, TextField, Typography } from "@mui/material"
 import { CreateGamePayload, Game, GameFormat, GameStatus, PanelStatus } from "../../../types/LibraryTypes"
 import { useCallback, useState } from "react"
 import { GameTitleInput } from "./inputs/GameTitleInput"
 import { GameStatusInput } from "./inputs/GameStatusInput"
+import { GameFormatInput } from "./inputs/GameFormatInput"
 
 interface DemoPanelInputFormProps {
     mode: PanelStatus
@@ -14,6 +15,7 @@ export const DemoPanelInputForm = (props: DemoPanelInputFormProps) => {
 
     const [titleInput, setTitleInput] = useState(game?.title ?? "")
     const [statusInput, setStatusInput] = useState(game?.status ?? GameStatus.Backlog)
+    const [formatInput, setFormatInput] = useState(game?.format ?? GameFormat.Physical)
 
     const [titleIsValid, setTitleIsValid] = useState(true)
 
@@ -34,7 +36,7 @@ export const DemoPanelInputForm = (props: DemoPanelInputFormProps) => {
                 title: titleInput,
                 status: statusInput,
                 console: "temp",            // TEMP
-                format: GameFormat.Digital, // TEMP
+                format: formatInput,
                 genre: "TEMP",              // TEMP
                 length: 0,                  // TEMP
                 createdAt: null,            // TEMP
@@ -46,7 +48,7 @@ export const DemoPanelInputForm = (props: DemoPanelInputFormProps) => {
             console.log("Nope")
         }
 
-    }, [titleInput, statusInput])
+    }, [titleInput, statusInput, formatInput])
 
     return (
         <Container sx={{background: "lightgrey", padding: "24px 12px"}}>
@@ -59,15 +61,8 @@ export const DemoPanelInputForm = (props: DemoPanelInputFormProps) => {
                 isInErrorState={!titleIsValid}
             />
             <Stack direction="row" justifyContent="space-between" mt={2}>
-                <GameStatusInput value={statusInput} handleChange={setStatusInput}/>
-                <FormControl>
-                    <FormLabel id="radio-format">Format</FormLabel>
-                    <RadioGroup title="Format">
-                        <FormControlLabel value={"Physical"} control={<Radio />} label={"Physical"} />
-                        <FormControlLabel value={"Digital"} control={<Radio />} label={"Digital"} />
-                        <FormControlLabel value={"Collector's"} control={<Radio />} label={"Collector's"} />
-                    </RadioGroup>
-                </FormControl>
+                <GameStatusInput value={statusInput} handleChange={setStatusInput} />
+                <GameFormatInput value={formatInput} handleChange={setFormatInput} />
             </Stack>
             <TextField
                 id="outlined-number"

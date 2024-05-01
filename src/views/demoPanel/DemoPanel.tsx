@@ -18,7 +18,6 @@ export const DemoPanel = () => {
 
     useEffect(() => {
         dispatch(fetchLibrary())
-        dispatch(fetchConsoles())
     }, [dispatch])
 
     useEffect(() => {

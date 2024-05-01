@@ -1,9 +1,13 @@
 import { Button, Container, MenuItem, Select, Stack, TextField, Typography } from "@mui/material"
 import { CreateGamePayload, Game, GameFormat, GameStatus, PanelStatus } from "../../../types/LibraryTypes"
-import { useCallback, useState } from "react"
+import { useCallback, useEffect, useState } from "react"
 import { GameTitleInput } from "./inputs/GameTitleInput"
 import { GameStatusInput } from "./inputs/GameStatusInput"
 import { GameFormatInput } from "./inputs/GameFormatInput"
+import { fetchConsoles } from "../../../store/slices/librarySlice"
+import { RootState, useAppDispatch } from "../../../store/store"
+import { useSelector } from "react-redux"
+import { ConsoleSelect } from "./inputs/ConsoleSelect"
 
 interface DemoPanelInputFormProps {
     mode: PanelStatus
@@ -11,13 +15,20 @@ interface DemoPanelInputFormProps {
 }
 
 export const DemoPanelInputForm = (props: DemoPanelInputFormProps) => {
+    const dispatch = useAppDispatch()
     const { mode, game } = props
+    const { consoles } = useSelector((state: RootState) => state.library)
 
     const [titleInput, setTitleInput] = useState(game?.title ?? "")
     const [statusInput, setStatusInput] = useState(game?.status ?? GameStatus.Backlog)
     const [formatInput, setFormatInput] = useState(game?.format ?? GameFormat.Physical)
+    const [consoleInput, setConsoleInput] = useState(game?.console.id ?? consoles[0].id)
 
     const [titleIsValid, setTitleIsValid] = useState(true)
+
+    useEffect(() => {
+        dispatch(fetchConsoles())
+    }, [dispatch])
 
     const submitCreate = useCallback(() => {
         let readyToSubmit = true
@@ -72,11 +83,7 @@ export const DemoPanelInputForm = (props: DemoPanelInputFormProps) => {
                 sx={{background: "white", mt:"16px"}}
             />
             <Stack direction="row" justifyContent="space-evenly" mt={2}>
-                 <Select label="Console" sx={{background: "white", minWidth: "160px"}}>
-                    <MenuItem value="">
-                        NA
-                    </MenuItem>
-                </Select>
+                <ConsoleSelect consoles={consoles} value={}/>
                 {/*<Select label="Genre" sx={{background: "white", minWidth: "160px"}}>
                     <MenuItem value="">
                         NA

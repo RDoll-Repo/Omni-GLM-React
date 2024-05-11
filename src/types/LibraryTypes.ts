@@ -1,10 +1,13 @@
+import { Console } from "./ConsoleTypes"
+import { Genre } from "./GenreTypes"
+
 export interface Game {
     id: string
     title: string
     status: GameStatus
-    console: string
+    console: Console
     format: GameFormat
-    genre: string
+    genre: Genre
     length: number
     createdAt: Date
     updatedAt: Date
@@ -18,9 +21,9 @@ export interface SearchLibraryReponse {
 export interface CreateGamePayload {
     title: string
     status: GameStatus
-    console: string
+    consoleId: string
     format: GameFormat
-    genre: string
+    genreId: string
     length: number
     createdAt: Date | null
     dateCompleted: Date | null

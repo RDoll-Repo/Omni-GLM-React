@@ -17,13 +17,13 @@ export const DemoPanelLibraryListItem = (props: DemoPanelLibraryListItemProps) =
                 <Typography color="white">{status}</Typography>
             </TableCell>
             <TableCell>
-                <Typography color="white">{console}</Typography>
+                <Typography color="white">{console.title}</Typography>
             </TableCell>
             <TableCell>
                 <Typography color="white">{format}</Typography>
             </TableCell>
             <TableCell>
-                <Typography color="white">{genre}</Typography>
+                <Typography color="white">{genre.title}</Typography>
             </TableCell>
             <TableCell>
                 <Typography color="white">{`${length} Hours`}</Typography>

@@ -1,4 +1,4 @@
-import { Button, Container, MenuItem, Select, Stack, TextField, Typography } from "@mui/material"
+import { Button, Container, Stack, TextField, Typography } from "@mui/material"
 import { CreateGamePayload, Game, GameFormat, GameStatus, PanelStatus } from "../../../types/LibraryTypes"
 import { useCallback, useEffect, useState } from "react"
 import { GameTitleInput } from "./inputs/GameTitleInput"
@@ -22,9 +22,10 @@ export const DemoPanelInputForm = (props: DemoPanelInputFormProps) => {
     const [titleInput, setTitleInput] = useState(game?.title ?? "")
     const [statusInput, setStatusInput] = useState(game?.status ?? GameStatus.Backlog)
     const [formatInput, setFormatInput] = useState(game?.format ?? GameFormat.Physical)
-    const [consoleInput, setConsoleInput] = useState(game?.console.id ?? consoles[0].id)
+    const [consoleInput, setConsoleInput] = useState("")
 
     const [titleIsValid, setTitleIsValid] = useState(true)
+    const [consoleIsValid, setConsoleIsValid] = useState(true)
 
     useEffect(() => {
         dispatch(fetchConsoles())
@@ -32,6 +33,8 @@ export const DemoPanelInputForm = (props: DemoPanelInputFormProps) => {
 
     const submitCreate = useCallback(() => {
         let readyToSubmit = true
+
+        console.log(consoleInput)
 
         // Go through inputs individually, bail if any fail
         if (titleInput !== "") {
@@ -41,12 +44,19 @@ export const DemoPanelInputForm = (props: DemoPanelInputFormProps) => {
             readyToSubmit = false
         }
 
+        if (consoleInput !== "") {
+            setConsoleIsValid(true)
+        } else {
+            setConsoleIsValid(false)
+            readyToSubmit= false
+        }
+
         if (readyToSubmit) {
             // Compose payload
             const payload: CreateGamePayload = {
                 title: titleInput,
                 status: statusInput,
-                console: "temp",            // TEMP
+                console: consoleInput,
                 format: formatInput,
                 genre: "TEMP",              // TEMP
                 length: 0,                  // TEMP
@@ -54,12 +64,13 @@ export const DemoPanelInputForm = (props: DemoPanelInputFormProps) => {
                 dateCompleted: null         // TEMP
             }
             console.log(payload)
+
             console.log("Submit")
         } else {
             console.log("Nope")
         }
 
-    }, [titleInput, statusInput, formatInput])
+    }, [titleInput, statusInput, formatInput, consoleInput])
 
     return (
         <Container sx={{background: "lightgrey", padding: "24px 12px"}}>
@@ -83,7 +94,7 @@ export const DemoPanelInputForm = (props: DemoPanelInputFormProps) => {
                 sx={{background: "white", mt:"16px"}}
             />
             <Stack direction="row" justifyContent="space-evenly" mt={2}>
-                <ConsoleSelect consoles={consoles} value={}/>
+                <ConsoleSelect consoles={consoles} value={consoleInput} handleChange={setConsoleInput} isInErrorState={!consoleIsValid}/> 
                 {/*<Select label="Genre" sx={{background: "white", minWidth: "160px"}}>
                     <MenuItem value="">
                         NA

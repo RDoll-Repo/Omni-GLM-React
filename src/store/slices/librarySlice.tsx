@@ -2,6 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { Game } from "../../types/LibraryTypes";
 import { fetchLibraryAsync } from "../../api/requests/libraryRequests";
 import { fetchConsolesAsync } from "../../api/requests/consoleRequests";
+import { Console } from "../../types/ConsoleTypes";
 
 export interface LibraryState {
     library: Game[]

@@ -1,18 +1,20 @@
 import { DatePicker } from "@mui/x-date-pickers"
 import dayjs, { Dayjs } from "dayjs"
 
-interface DateAddedPicker {
-    value: Dayjs
+interface DateCompletedPicker {
+    value: Dayjs | null
     handleChange: (newValue: Dayjs) => void
+    disabled: boolean,
 }
 
-export const DateAddedPicker = (props: DateAddedPicker) => {
-    const { value, handleChange } = props
+export const DateCompletedPicker = (props: DateCompletedPicker) => {
+    const { value, handleChange, disabled } = props
     return (
         <DatePicker 
             value={value}
             onChange={(event) => handleChange(dayjs(event))}
-            label="Date Added"
+            label="Date Completed"
+            disabled={disabled}
         />
     )
 }

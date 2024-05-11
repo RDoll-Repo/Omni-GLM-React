@@ -11,6 +11,7 @@ import { ConsoleSelect } from "./inputs/ConsoleSelect"
 import { GenreSelect } from "./inputs/GenreSelect"
 import { HoursInput } from "./inputs/HoursInput"
 import { DateAddedPicker } from "./inputs/DateAddedPicker"
+import dayjs from "dayjs"
 
 interface DemoPanelInputFormProps {
     mode: PanelStatus
@@ -28,6 +29,7 @@ export const DemoPanelInputForm = (props: DemoPanelInputFormProps) => {
     const [consoleInput, setConsoleInput] = useState(game?.console.id ?? "")
     const [genreInput, setGenreInput] = useState(game?.genre.id ?? "")
     const [hoursInput, setHoursInput] = useState(game?.length.toString() ?? "0")
+    const [dateAddedInput, setDateAddedInput] = useState(dayjs(game?.createdAt) ?? dayjs("02-02-2022"))
 
     const [titleIsValid, setTitleIsValid] = useState(true)
     const [consoleIsValid, setConsoleIsValid] = useState(true)
@@ -41,7 +43,6 @@ export const DemoPanelInputForm = (props: DemoPanelInputFormProps) => {
 
     const submitCreate = useCallback(() => {
         let readyToSubmit = true
-        let hours = 0
 
         // Go through inputs individually, bail if any fail
         if (titleInput !== "") {
@@ -67,7 +68,6 @@ export const DemoPanelInputForm = (props: DemoPanelInputFormProps) => {
 
         if (!isNaN(+hoursInput) && +hoursInput > 0) {
             setHoursIsValid(true)
-            hours = parseInt(hoursInput)
         } else {
             setHoursIsValid(false)
             readyToSubmit = false
@@ -81,8 +81,8 @@ export const DemoPanelInputForm = (props: DemoPanelInputFormProps) => {
                 consoleId: consoleInput,
                 format: formatInput,
                 genreId: genreInput,
-                length: hours,
-                createdAt: null,            // TEMP
+                length: parseInt(hoursInput),
+                createdAt: dayjs(dateAddedInput).toISOString(),
                 dateCompleted: null         // TEMP
             }
             console.log(payload)
@@ -92,7 +92,7 @@ export const DemoPanelInputForm = (props: DemoPanelInputFormProps) => {
             console.log("Nope")
         }
 
-    }, [titleInput, statusInput, formatInput, consoleInput, genreInput, hoursInput])
+    }, [titleInput, statusInput, formatInput, consoleInput, genreInput, hoursInput, dateAddedInput])
 
     return (
         <Container sx={{background: "lightgrey", padding: "24px 12px"}}>
@@ -114,7 +114,7 @@ export const DemoPanelInputForm = (props: DemoPanelInputFormProps) => {
                     <ConsoleSelect consoles={consoles} value={consoleInput} handleChange={setConsoleInput} isInErrorState={!consoleIsValid}/> 
                     <GenreSelect genres={genres} value={genreInput} handleChange={setGenreInput} isInErrorState={!genreIsValid} />
                 </Stack>
-                <DateAddedPicker />
+                <DateAddedPicker value={dateAddedInput} handleChange={setDateAddedInput}/>
                 {/* <TextField
                     label="Date Added"
                     defaultValue={mode == PanelStatus.Editing ? game?.title : ""}

@@ -25,8 +25,8 @@ export interface CreateGamePayload {
     format: GameFormat
     genreId: string
     length: number
-    createdAt: Date | null
-    dateCompleted: Date | null
+    createdAt: string
+    dateCompleted: string | null
 }
 
 // TODO: See about just using a bool for this

@@ -10,6 +10,7 @@ import { useSelector } from "react-redux"
 import { ConsoleSelect } from "./inputs/ConsoleSelect"
 import { GenreSelect } from "./inputs/GenreSelect"
 import { HoursInput } from "./inputs/HoursInput"
+import { DateAddedPicker } from "./inputs/DateAddedPicker"
 
 interface DemoPanelInputFormProps {
     mode: PanelStatus
@@ -95,42 +96,46 @@ export const DemoPanelInputForm = (props: DemoPanelInputFormProps) => {
 
     return (
         <Container sx={{background: "lightgrey", padding: "24px 12px"}}>
-            <Typography mb={6}>
-                {mode == PanelStatus.Editing ? "Edit Game" : "Add Game"}
-            </Typography>
-            <GameTitleInput 
-                handleChange={setTitleInput} 
-                value={titleInput}
-                isInErrorState={!titleIsValid}
-            />
-            <Stack direction="row" justifyContent="space-between" mt={2}>
-                <GameStatusInput value={statusInput} handleChange={setStatusInput} />
-                <GameFormatInput value={formatInput} handleChange={setFormatInput} />
+            <Stack direction="column" spacing="24px">
+                <Typography mb="24px">
+                    {mode == PanelStatus.Editing ? "Edit Game" : "Add Game"}
+                </Typography>
+                <GameTitleInput 
+                    handleChange={setTitleInput} 
+                    value={titleInput}
+                    isInErrorState={!titleIsValid}
+                />
+                <Stack direction="row" justifyContent="space-between">
+                    <GameStatusInput value={statusInput} handleChange={setStatusInput} />
+                    <GameFormatInput value={formatInput} handleChange={setFormatInput} />
+                </Stack>
+                <HoursInput value={hoursInput} handleChange={setHoursInput} isInErrorState={!hoursIsValid}/>
+                <Stack direction="row" justifyContent="space-evenly">
+                    <ConsoleSelect consoles={consoles} value={consoleInput} handleChange={setConsoleInput} isInErrorState={!consoleIsValid}/> 
+                    <GenreSelect genres={genres} value={genreInput} handleChange={setGenreInput} isInErrorState={!genreIsValid} />
+                </Stack>
+                <DateAddedPicker />
+                {/* <TextField
+                    label="Date Added"
+                    defaultValue={mode == PanelStatus.Editing ? game?.title : ""}
+                    color="secondary"
+                    sx={{background: "white", mt: "16px"}}
+                    fullWidth
+                /> */}
+                <TextField
+                    id="title-textfield"
+                    label="Date Complete"
+                    defaultValue={mode == PanelStatus.Editing ? game?.title : ""}
+                    color="secondary"
+                    sx={{background: "white", mt: "16px"}}
+                    fullWidth
+                />
+                <Stack direction="row" justifyContent="space-evenly" mt={2}>
+                    <Button variant="contained">Cancel</Button>
+                    <Button variant="contained" onClick={submitCreate}>Confirm</Button>
+                </Stack>
             </Stack>
-            <HoursInput value={hoursInput} handleChange={setHoursInput} isInErrorState={!hoursIsValid}/>
-            <Stack direction="row" justifyContent="space-evenly" mt={2}>
-                <ConsoleSelect consoles={consoles} value={consoleInput} handleChange={setConsoleInput} isInErrorState={!consoleIsValid}/> 
-                <GenreSelect genres={genres} value={genreInput} handleChange={setGenreInput} isInErrorState={!genreIsValid} />
-            </Stack>
-            <TextField
-                label="Date Added"
-                defaultValue={mode == PanelStatus.Editing ? game?.title : ""}
-                color="secondary"
-                sx={{background: "white", mt: "16px"}}
-                fullWidth
-            />
-            <TextField
-                id="title-textfield"
-                label="Date Complete"
-                defaultValue={mode == PanelStatus.Editing ? game?.title : ""}
-                color="secondary"
-                sx={{background: "white", mt: "16px"}}
-                fullWidth
-            />
-            <Stack direction="row" justifyContent="space-evenly" mt={2}>
-                <Button variant="contained">Cancel</Button>
-                <Button variant="contained" onClick={submitCreate}>Confirm</Button>
-            </Stack>
+
         </Container>
     )
 }

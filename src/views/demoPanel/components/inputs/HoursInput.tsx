@@ -16,7 +16,7 @@ export const HoursInput = (props: HoursInputProps) => {
             defaultValue={value}
             color="secondary"
             size="small"
-            sx={{background: "white", mt:"16px"}}
+            sx={{background: "white", maxWidth: "100px", mt:"16px", alignSelf: "center"}}
             onChange={(event) => handleChange(event.target.value)}
             error={isInErrorState}
             helperText={isInErrorState ? "Value must be a number greater than zero" : null}

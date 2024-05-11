@@ -3,18 +3,22 @@ import { Game } from "../../types/LibraryTypes";
 import { fetchLibraryAsync } from "../../api/requests/libraryRequests";
 import { fetchConsolesAsync } from "../../api/requests/consoleRequests";
 import { Console } from "../../types/ConsoleTypes";
+import { fetchGenresAsync } from "../../api/requests/genreRequests";
+import { Genre } from "../../types/GenreTypes";
 
 export interface LibraryState {
     library: Game[]
     consoles: Console[]
+    genres: Genre[]
 }
 
 const initialState = {
     library: [] as Game[], 
-    consoles: [] as Console[]
+    consoles: [] as Console[],
+    genres: [] as Genre[]
 } as LibraryState
 
-// Temp implementation
+// Temp implementation - to be full search later
 export const fetchLibrary = createAsyncThunk(
     'oglm/library',
     async (_, thunkApi) => {
@@ -43,6 +47,20 @@ export const fetchConsoles = createAsyncThunk(
     }
 )
 
+export const fetchGenres = createAsyncThunk(
+    'oglm/genres',
+    async (_, thunkApi) => {
+        try {
+            const response = await fetchGenresAsync()
+
+            return response
+        } catch (e) {
+            console.log(e)
+            thunkApi.rejectWithValue(e)
+        }
+    }
+)
+
 export const librarySlice = createSlice({
     name: 'Library',
     initialState,
@@ -56,6 +74,11 @@ export const librarySlice = createSlice({
         builder.addCase(fetchConsoles.fulfilled, (state, action) => {
             if (action.payload) {
                 state.consoles = action.payload.data.consoles
+            }
+        })
+        builder.addCase(fetchGenres.fulfilled, (state, action) => {
+            if (action.payload) {
+                state.genres = action.payload.data.genres
             }
         })
     }

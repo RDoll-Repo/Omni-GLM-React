@@ -6,5 +6,5 @@ export interface Genre {
 }
 
 export interface SearchGenresResponse {
-    consoles: Genre[]
+    genres: Genre[]
 }

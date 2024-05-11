@@ -4,10 +4,11 @@ import { useCallback, useEffect, useState } from "react"
 import { GameTitleInput } from "./inputs/GameTitleInput"
 import { GameStatusInput } from "./inputs/GameStatusInput"
 import { GameFormatInput } from "./inputs/GameFormatInput"
-import { fetchConsoles } from "../../../store/slices/librarySlice"
+import { fetchConsoles, fetchGenres } from "../../../store/slices/librarySlice"
 import { RootState, useAppDispatch } from "../../../store/store"
 import { useSelector } from "react-redux"
 import { ConsoleSelect } from "./inputs/ConsoleSelect"
+import { GenreSelect } from "./inputs/GenreSelect"
 
 interface DemoPanelInputFormProps {
     mode: PanelStatus
@@ -17,24 +18,25 @@ interface DemoPanelInputFormProps {
 export const DemoPanelInputForm = (props: DemoPanelInputFormProps) => {
     const dispatch = useAppDispatch()
     const { mode, game } = props
-    const { consoles } = useSelector((state: RootState) => state.library)
+    const { consoles, genres } = useSelector((state: RootState) => state.library)
 
     const [titleInput, setTitleInput] = useState(game?.title ?? "")
     const [statusInput, setStatusInput] = useState(game?.status ?? GameStatus.Backlog)
     const [formatInput, setFormatInput] = useState(game?.format ?? GameFormat.Physical)
-    const [consoleInput, setConsoleInput] = useState("")
+    const [consoleInput, setConsoleInput] = useState(game?.console.id ?? "")
+    const [genreInput, setGenreInput] = useState(game?.genre.id ?? "")
 
     const [titleIsValid, setTitleIsValid] = useState(true)
     const [consoleIsValid, setConsoleIsValid] = useState(true)
+    const [genreIsValid, setGenreIsValid] = useState(true)
 
     useEffect(() => {
         dispatch(fetchConsoles())
+        dispatch(fetchGenres())
     }, [dispatch])
 
     const submitCreate = useCallback(() => {
         let readyToSubmit = true
-
-        console.log(consoleInput)
 
         // Go through inputs individually, bail if any fail
         if (titleInput !== "") {
@@ -51,14 +53,21 @@ export const DemoPanelInputForm = (props: DemoPanelInputFormProps) => {
             readyToSubmit= false
         }
 
+        if (genreInput != "") {
+            setGenreIsValid(true)
+        } else {
+            setGenreIsValid(false)
+            readyToSubmit = false
+        }
+
         if (readyToSubmit) {
             // Compose payload
             const payload: CreateGamePayload = {
                 title: titleInput,
                 status: statusInput,
-                console: consoleInput,
+                consoleId: consoleInput,
                 format: formatInput,
-                genre: "TEMP",              // TEMP
+                genreId: genreInput,
                 length: 0,                  // TEMP
                 createdAt: null,            // TEMP
                 dateCompleted: null         // TEMP
@@ -70,7 +79,7 @@ export const DemoPanelInputForm = (props: DemoPanelInputFormProps) => {
             console.log("Nope")
         }
 
-    }, [titleInput, statusInput, formatInput, consoleInput])
+    }, [titleInput, statusInput, formatInput, consoleInput, genreInput])
 
     return (
         <Container sx={{background: "lightgrey", padding: "24px 12px"}}>
@@ -95,11 +104,7 @@ export const DemoPanelInputForm = (props: DemoPanelInputFormProps) => {
             />
             <Stack direction="row" justifyContent="space-evenly" mt={2}>
                 <ConsoleSelect consoles={consoles} value={consoleInput} handleChange={setConsoleInput} isInErrorState={!consoleIsValid}/> 
-                {/*<Select label="Genre" sx={{background: "white", minWidth: "160px"}}>
-                    <MenuItem value="">
-                        NA
-                    </MenuItem>
-                </Select> */}
+                <GenreSelect genres={genres} value={genreInput} handleChange={setGenreInput} isInErrorState={!genreIsValid} />
             </Stack>
             <TextField
                 label="Date Added"

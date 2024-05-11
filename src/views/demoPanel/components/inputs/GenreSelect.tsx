@@ -11,9 +11,9 @@ export interface GenreSelectProps {
 export const GenreSelect = (props: GenreSelectProps) => {
     const { genres, value, handleChange, isInErrorState } = props
 
-    const options = genres.map((g, _) => {
+    const options = genres.map((g, index) => {
         return(
-            <MenuItem value={g.id} key={g.id}>
+            <MenuItem value={g.id} key={index}>
                 {g.title}
             </MenuItem>
         )

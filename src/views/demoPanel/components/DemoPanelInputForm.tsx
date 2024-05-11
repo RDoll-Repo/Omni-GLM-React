@@ -9,6 +9,7 @@ import { RootState, useAppDispatch } from "../../../store/store"
 import { useSelector } from "react-redux"
 import { ConsoleSelect } from "./inputs/ConsoleSelect"
 import { GenreSelect } from "./inputs/GenreSelect"
+import { HoursInput } from "./inputs/HoursInput"
 
 interface DemoPanelInputFormProps {
     mode: PanelStatus
@@ -25,10 +26,12 @@ export const DemoPanelInputForm = (props: DemoPanelInputFormProps) => {
     const [formatInput, setFormatInput] = useState(game?.format ?? GameFormat.Physical)
     const [consoleInput, setConsoleInput] = useState(game?.console.id ?? "")
     const [genreInput, setGenreInput] = useState(game?.genre.id ?? "")
+    const [hoursInput, setHoursInput] = useState(game?.length.toString() ?? "0")
 
     const [titleIsValid, setTitleIsValid] = useState(true)
     const [consoleIsValid, setConsoleIsValid] = useState(true)
     const [genreIsValid, setGenreIsValid] = useState(true)
+    const [hoursIsValid, setHoursIsValid] = useState(true)
 
     useEffect(() => {
         dispatch(fetchConsoles())
@@ -37,6 +40,7 @@ export const DemoPanelInputForm = (props: DemoPanelInputFormProps) => {
 
     const submitCreate = useCallback(() => {
         let readyToSubmit = true
+        let hours = 0
 
         // Go through inputs individually, bail if any fail
         if (titleInput !== "") {
@@ -60,6 +64,14 @@ export const DemoPanelInputForm = (props: DemoPanelInputFormProps) => {
             readyToSubmit = false
         }
 
+        if (!isNaN(+hoursInput) && +hoursInput > 0) {
+            setHoursIsValid(true)
+            hours = parseInt(hoursInput)
+        } else {
+            setHoursIsValid(false)
+            readyToSubmit = false
+        }
+
         if (readyToSubmit) {
             // Compose payload
             const payload: CreateGamePayload = {
@@ -68,7 +80,7 @@ export const DemoPanelInputForm = (props: DemoPanelInputFormProps) => {
                 consoleId: consoleInput,
                 format: formatInput,
                 genreId: genreInput,
-                length: 0,                  // TEMP
+                length: hours,
                 createdAt: null,            // TEMP
                 dateCompleted: null         // TEMP
             }
@@ -79,7 +91,7 @@ export const DemoPanelInputForm = (props: DemoPanelInputFormProps) => {
             console.log("Nope")
         }
 
-    }, [titleInput, statusInput, formatInput, consoleInput, genreInput])
+    }, [titleInput, statusInput, formatInput, consoleInput, genreInput, hoursInput])
 
     return (
         <Container sx={{background: "lightgrey", padding: "24px 12px"}}>
@@ -95,13 +107,7 @@ export const DemoPanelInputForm = (props: DemoPanelInputFormProps) => {
                 <GameStatusInput value={statusInput} handleChange={setStatusInput} />
                 <GameFormatInput value={formatInput} handleChange={setFormatInput} />
             </Stack>
-            <TextField
-                id="outlined-number"
-                label="Hours"
-                type="number"
-                size="small"
-                sx={{background: "white", mt:"16px"}}
-            />
+            <HoursInput value={hoursInput} handleChange={setHoursInput} isInErrorState={!hoursIsValid}/>
             <Stack direction="row" justifyContent="space-evenly" mt={2}>
                 <ConsoleSelect consoles={consoles} value={consoleInput} handleChange={setConsoleInput} isInErrorState={!consoleIsValid}/> 
                 <GenreSelect genres={genres} value={genreInput} handleChange={setGenreInput} isInErrorState={!genreIsValid} />

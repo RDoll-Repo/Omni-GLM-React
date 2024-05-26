@@ -21,5 +21,6 @@ export interface SearchResponseMeta {
 }
 
 export interface ApiPayload<TData> {
+    meta: any
     data: TData
 }

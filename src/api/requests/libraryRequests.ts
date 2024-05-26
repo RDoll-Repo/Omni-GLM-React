@@ -12,6 +12,7 @@ export const fetchLibraryAsync = async () => {
 
 export const createGameAsync = async (data: CreateGamePayload) => {
     const payload: ApiPayload<CreateGamePayload> = {
+        meta: {},
         data: data
     }
     

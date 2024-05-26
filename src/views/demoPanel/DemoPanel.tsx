@@ -10,15 +10,17 @@ import { Game, PanelStatus } from "../../types/LibraryTypes"
 
 export const DemoPanel = () => {
     const dispatch = useAppDispatch()
-    const { library } = useSelector((state: RootState) => state.library)
+    const { library, refetchPending } = useSelector((state: RootState) => state.library)
 
     const [panelStatus, setPanelStatus] = useState<PanelStatus>(PanelStatus.Viewing)
     const [currentGame, setCurrentGame] = useState<Game | null>(null)
     // State for refetching after API requests
 
     useEffect(() => {
-        dispatch(fetchLibrary())
-    }, [dispatch])
+        if (refetchPending) {
+            dispatch(fetchLibrary())
+        }
+    }, [dispatch, refetchPending])
 
     useEffect(() => {
         console.log(panelStatus)

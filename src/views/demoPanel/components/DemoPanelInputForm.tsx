@@ -1,10 +1,10 @@
-import { Button, Container, Stack, TextField, Typography } from "@mui/material"
+import { Button, Container, Stack, Typography } from "@mui/material"
 import { CreateGamePayload, Game, GameFormat, GameStatus, PanelStatus } from "../../../types/LibraryTypes"
 import { useCallback, useEffect, useState } from "react"
 import { GameTitleInput } from "./inputs/GameTitleInput"
 import { GameStatusInput } from "./inputs/GameStatusInput"
 import { GameFormatInput } from "./inputs/GameFormatInput"
-import { fetchConsoles, fetchGenres } from "../../../store/slices/librarySlice"
+import { createGame, fetchConsoles, fetchGenres } from "../../../store/slices/librarySlice"
 import { RootState, useAppDispatch } from "../../../store/store"
 import { useSelector } from "react-redux"
 import { ConsoleSelect } from "./inputs/ConsoleSelect"
@@ -91,7 +91,7 @@ export const DemoPanelInputForm = (props: DemoPanelInputFormProps) => {
             }
             console.log(payload)
 
-            console.log("Submit")
+            dispatch(createGame(payload))
         } else {
             console.log("Nope")
         }

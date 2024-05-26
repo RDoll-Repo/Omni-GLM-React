@@ -22,12 +22,19 @@ export const DemoPanel = () => {
         }
     }, [dispatch, refetchPending])
 
+    useEffect(() => {
+        if (currentGame) {
+            console.log(currentGame.title)
+            setPanelIsVisible(true)
+        }
+    }, [currentGame])
+
 
     return(
         <Grid container spacing={4} direction="row">
             <Grid item xs={panelIsVisible ? 8 : 12}>
                 <DemoPanelHeader onClick={setPanelIsVisible}/>
-                <DemoPanelLibraryList games={library}/>
+                <DemoPanelLibraryList games={library} onEditClick={setCurrentGame}/>
             </Grid>
             { panelIsVisible && 
                 <Grid item xs={4}>

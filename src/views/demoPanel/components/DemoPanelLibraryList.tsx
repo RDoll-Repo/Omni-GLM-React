@@ -4,13 +4,22 @@ import { DemoPanelLibraryListItem } from "./DemoPanelLibraryListItem"
 
 interface DemoPanelLibraryListProps {
     games: Game[]
+    onEditClick: (value: React.SetStateAction<Game | null>) => void
 }
 
 export const DemoPanelLibraryList = (props: DemoPanelLibraryListProps) => {
-    const { games } = props
+    const { games, onEditClick } = props
+
+    const setCurrentGame = (id: string) => {
+        const game = games.find(g => g.id === id)
+
+        if (game) {
+            onEditClick(game)
+        }
+    }
 
     const rows = games.map((g, index) => {
-        return (<DemoPanelLibraryListItem key={index} game={g}/>)
+        return (<DemoPanelLibraryListItem key={index} game={g} onEditClick={setCurrentGame}/>)
     })
     
     return (

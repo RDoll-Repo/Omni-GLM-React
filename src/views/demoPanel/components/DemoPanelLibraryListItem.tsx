@@ -1,12 +1,15 @@
 import { TableCell, TableRow, Typography } from "@mui/material"
 import { Game } from "../../../types/LibraryTypes"
+import { EditButton } from "../../components/EditButton"
 
 interface DemoPanelLibraryListItemProps {
     game: Game
+    onEditClick: (id: string) => void
 }
 
 export const DemoPanelLibraryListItem = (props: DemoPanelLibraryListItemProps) => {
-    const { title, status, console, format, genre, length } = props.game
+    const { game, onEditClick } = props
+    const { id, title, status, console, format, genre, length } = game
 
     return (
         <TableRow>
@@ -27,6 +30,9 @@ export const DemoPanelLibraryListItem = (props: DemoPanelLibraryListItemProps) =
             </TableCell>
             <TableCell>
                 <Typography color="white">{`${length} Hours`}</Typography>
+            </TableCell>
+            <TableCell>
+                <EditButton onClick={() => onEditClick(id)}/>
             </TableCell>
         </TableRow>
     )

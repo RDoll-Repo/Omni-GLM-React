@@ -1,12 +1,10 @@
 import { Button, Stack, Typography } from "@mui/material"
-import { PanelStatus } from "../../../types/LibraryTypes"
 
 interface DemoPanelHeaderProps {
-    onClick: (value: PanelStatus) => void
+    onClick: (value: boolean) => void
 }
 
 export const DemoPanelHeader = (props: DemoPanelHeaderProps) => {
-    // const theme = useTheme()
     const { onClick } = props
 
     return(
@@ -14,7 +12,7 @@ export const DemoPanelHeader = (props: DemoPanelHeaderProps) => {
             <Typography variant="h3">
                 OMNI-GLM Demo Panel
             </Typography>
-            <Button variant="contained" onClick={() => onClick(PanelStatus.Adding)}>
+            <Button variant="contained" onClick={() => onClick(true)}>
                 +
             </Button>
         </Stack>

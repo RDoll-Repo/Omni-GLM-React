@@ -29,13 +29,6 @@ export interface CreateGamePayload {
     dateCompleted: string | null
 }
 
-// TODO: See about just using a bool for this
-export enum PanelStatus {
-    Viewing,
-    Adding,
-    Editing
-}
-
 export enum GameStatus {
     Backlog,
     Playing,

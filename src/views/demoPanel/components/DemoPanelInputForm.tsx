@@ -1,5 +1,5 @@
 import { Button, Container, Stack, Typography } from "@mui/material"
-import { CreateGamePayload, Game, GameFormat, GameStatus, PanelStatus } from "../../../types/LibraryTypes"
+import { CreateGamePayload, Game, GameFormat, GameStatus } from "../../../types/LibraryTypes"
 import { useCallback, useEffect, useState } from "react"
 import { GameTitleInput } from "./inputs/GameTitleInput"
 import { GameStatusInput } from "./inputs/GameStatusInput"
@@ -15,14 +15,14 @@ import dayjs from "dayjs"
 import { DateCompletedPicker } from "./inputs/DateCompletedPicker"
 
 interface DemoPanelInputFormProps {
-    mode: PanelStatus
     game: Game | null
+    setPanelIsVisible: (value: boolean) => void
 }
 
 export const DemoPanelInputForm = (props: DemoPanelInputFormProps) => {
     const dispatch = useAppDispatch()
-    const { mode, game } = props
-    const { consoles, genres } = useSelector((state: RootState) => state.library)
+    const { game, setPanelIsVisible } = props
+    const { consoles, genres, refetchPending } = useSelector((state: RootState) => state.library)
 
     const [titleInput, setTitleInput] = useState(game?.title ?? "")
     const [statusInput, setStatusInput] = useState(game?.status ?? GameStatus.Backlog)
@@ -97,6 +97,7 @@ export const DemoPanelInputForm = (props: DemoPanelInputFormProps) => {
         }
 
     }, [
+        dispatch,
         titleInput, 
         statusInput, 
         formatInput, 
@@ -107,11 +108,17 @@ export const DemoPanelInputForm = (props: DemoPanelInputFormProps) => {
         dateCompletedInput
     ])
 
+    useEffect(() => {
+        if (refetchPending) {
+            setPanelIsVisible(false)
+        }
+    }, [refetchPending, setPanelIsVisible])
+
     return (
         <Container sx={{background: "lightgrey", padding: "24px 12px"}}>
             <Stack direction="column" spacing="24px">
                 <Typography mb="24px">
-                    {mode == PanelStatus.Editing ? "Edit Game" : "Add Game"}
+                    {game?.id ? "Edit Game" : "Add Game"}
                 </Typography>
                 <GameTitleInput 
                     handleChange={setTitleInput} 
@@ -134,11 +141,10 @@ export const DemoPanelInputForm = (props: DemoPanelInputFormProps) => {
                     disabled={statusInput !== GameStatus.Finished} 
                 />
                 <Stack direction="row" justifyContent="space-evenly" mt={2}>
-                    <Button variant="contained">Cancel</Button>
+                    <Button variant="contained" onClick={() => setPanelIsVisible(false)}>Cancel</Button>
                     <Button variant="contained" onClick={submitCreate}>Confirm</Button>
                 </Stack>
             </Stack>
-
         </Container>
     )
 }

@@ -23,3 +23,17 @@ export const createGameAsync = async (data: CreateGamePayload) => {
 
     return response
 }
+
+export const updateGameAsync = async (id: string, data: CreateGamePayload) => {
+    const payload: ApiPayload<CreateGamePayload> = {
+        meta: {},
+        data: data
+    }
+    
+    const response = await api.put<ApiResponse<Game>>(
+        `library/${id}`,
+        payload
+    )
+
+    return response
+}

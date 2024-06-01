@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { CreateGamePayload, Game } from "../../types/LibraryTypes";
-import { createGameAsync, fetchLibraryAsync } from "../../api/requests/libraryRequests";
+import { createGameAsync, fetchLibraryAsync, updateGameAsync } from "../../api/requests/libraryRequests";
 import { fetchConsolesAsync } from "../../api/requests/consoleRequests";
 import { Console } from "../../types/ConsoleTypes";
 import { fetchGenresAsync } from "../../api/requests/genreRequests";
@@ -68,6 +68,21 @@ export const createGame = createAsyncThunk(
     async (payload: CreateGamePayload, thunkApi) => {
         try {
             const response = await createGameAsync(payload)
+
+            return response
+        } catch (e) {
+            console.log(e)
+            thunkApi.rejectWithValue(e)
+        }
+    }
+)
+
+export const updateGame = createAsyncThunk(
+    'oglm/consoles/create',
+    async (payload: {id: string, data: CreateGamePayload}, thunkApi) => {
+        const { id, data } = payload
+        try {
+            const response = await updateGameAsync(id, data)
 
             return response
         } catch (e) {

@@ -4,7 +4,7 @@ import { useCallback, useEffect, useState } from "react"
 import { GameTitleInput } from "./inputs/GameTitleInput"
 import { GameStatusInput } from "./inputs/GameStatusInput"
 import { GameFormatInput } from "./inputs/GameFormatInput"
-import { createGame, fetchConsoles, fetchGenres } from "../../../store/slices/librarySlice"
+import { createGame, fetchConsoles, fetchGenres, updateGame } from "../../../store/slices/librarySlice"
 import { RootState, useAppDispatch } from "../../../store/store"
 import { useSelector } from "react-redux"
 import { ConsoleSelect } from "./inputs/ConsoleSelect"
@@ -76,7 +76,10 @@ export const DemoPanelInputForm = (props: DemoPanelInputFormProps) => {
         }
 
         if (readyToSubmit) {
-            // Compose payload
+            /**
+             * REMINDER: payloads for create and update are functionally the same for now,
+             * but may change as we further define features
+             */
             const payload: CreateGamePayload = {
                 title: titleInput,
                 status: statusInput,
@@ -91,7 +94,11 @@ export const DemoPanelInputForm = (props: DemoPanelInputFormProps) => {
             }
             console.log(payload)
 
-            dispatch(createGame(payload))
+            if (game?.id) {
+                dispatch(updateGame({ id: game?.id, data: payload }))
+            } else {
+                dispatch(createGame(payload))
+            }
         } else {
             console.log("Nope")
         }

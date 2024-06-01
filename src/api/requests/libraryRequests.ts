@@ -37,3 +37,9 @@ export const updateGameAsync = async (id: string, data: CreateGamePayload) => {
 
     return response
 }
+
+export const deleteGameAsync = async (id: string) => {
+    const response = await api.delete(`library/${id}`)
+
+    return response
+}

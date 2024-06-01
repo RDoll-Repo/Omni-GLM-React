@@ -112,7 +112,8 @@ export const DemoPanelInputForm = (props: DemoPanelInputFormProps) => {
         genreInput, 
         hoursInput, 
         dateAddedInput,
-        dateCompletedInput
+        dateCompletedInput,
+        game?.id
     ])
 
     useEffect(() => {

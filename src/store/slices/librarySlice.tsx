@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { CreateGamePayload, Game } from "../../types/LibraryTypes";
-import { createGameAsync, fetchLibraryAsync, updateGameAsync } from "../../api/requests/libraryRequests";
+import { createGameAsync, deleteGameAsync, fetchLibraryAsync, updateGameAsync } from "../../api/requests/libraryRequests";
 import { fetchConsolesAsync } from "../../api/requests/consoleRequests";
 import { Console } from "../../types/ConsoleTypes";
 import { fetchGenresAsync } from "../../api/requests/genreRequests";
@@ -78,11 +78,25 @@ export const createGame = createAsyncThunk(
 )
 
 export const updateGame = createAsyncThunk(
-    'oglm/consoles/create',
+    'oglm/consoles/update',
     async (payload: {id: string, data: CreateGamePayload}, thunkApi) => {
         const { id, data } = payload
         try {
             const response = await updateGameAsync(id, data)
+
+            return response
+        } catch (e) {
+            console.log(e)
+            thunkApi.rejectWithValue(e)
+        }
+    }
+)
+
+export const deleteGame = createAsyncThunk(
+    'oglm/consoles/delete',
+    async (id: string, thunkApi) => {
+        try {
+            const response = await deleteGameAsync(id)
 
             return response
         } catch (e) {
@@ -117,6 +131,14 @@ export const librarySlice = createSlice({
             if (action.payload) {
                 state.refetchPending = true
             }
+        })
+        builder.addCase(updateGame.fulfilled, (state, action) => {
+            if (action.payload) {
+                state.refetchPending = true
+            }
+        })
+        builder.addCase(deleteGame.fulfilled, (state) => {
+            state.refetchPending = true
         })
     }
 })

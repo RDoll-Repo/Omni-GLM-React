@@ -1,6 +1,7 @@
 import { TableCell, TableRow, Typography } from "@mui/material"
 import { Game } from "../../../types/LibraryTypes"
 import { EditButton } from "../../components/EditButton"
+import { DeleteButton } from "../../components/DeleteButton"
 
 interface DemoPanelLibraryListItemProps {
     game: Game
@@ -33,6 +34,7 @@ export const DemoPanelLibraryListItem = (props: DemoPanelLibraryListItemProps) =
             </TableCell>
             <TableCell>
                 <EditButton onClick={() => onEditClick(id)}/>
+                <DeleteButton id={id} />
             </TableCell>
         </TableRow>
     )

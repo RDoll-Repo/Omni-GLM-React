@@ -19,12 +19,12 @@ export const DemoPanel = () => {
     useEffect(() => {
         if (refetchPending) {
             dispatch(fetchLibrary())
+            setCurrentGame(null)
         }
     }, [dispatch, refetchPending])
 
     useEffect(() => {
         if (currentGame) {
-            console.log(currentGame.title)
             setPanelIsVisible(true)
         }
     }, [currentGame])

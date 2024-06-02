@@ -7,23 +7,6 @@ export interface SerializeableAxiosResponse {
     statusCode: number
 }
 
-export interface Game {
-    id: string
-    title: string
-    status: string
-    console: string
-    format: string
-    genre: string
-    length: number
-    createdAt: Date
-    updatedAt: Date
-    dateCompleted: Date
-}
-
-export interface SearchLibraryReponse {
-    games: Game[]
-}
-
 export interface ApiResponse<TData> {
     data: TData
 }
@@ -35,4 +18,9 @@ export interface ApiResponseWithMeta<TMeta, TData> {
 
 export interface SearchResponseMeta {
     count: number
+}
+
+export interface ApiPayload<TData> {
+    meta: any
+    data: TData
 }

@@ -1,5 +1,5 @@
 import { Route, Routes } from "react-router-dom"
-import { DemoPanel } from "./DemoPanel"
+import { DemoPanel } from "./views/demoPanel/DemoPanel"
 
 export const RouteContent = () => {
     return (

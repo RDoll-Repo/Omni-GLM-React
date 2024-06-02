@@ -35,4 +35,3 @@ export const ConsoleSelect = (props: ConsoleSelectProps) => {
         </FormControl>
     )
 }
-

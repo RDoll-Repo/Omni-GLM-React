@@ -139,8 +139,18 @@ export const DemoPanelInputForm = (props: DemoPanelInputFormProps) => {
                 </Stack>
                 <HoursInput value={hoursInput} handleChange={setHoursInput} isInErrorState={!hoursIsValid}/>
                 <Stack direction="row" justifyContent="space-evenly">
-                    <ConsoleSelect consoles={consoles} value={consoleInput} handleChange={setConsoleInput} isInErrorState={!consoleIsValid}/> 
-                    <GenreSelect genres={genres} value={genreInput} handleChange={setGenreInput} isInErrorState={!genreIsValid} />
+                    <ConsoleSelect 
+                        consoles={consoles} 
+                        value={consoleInput} 
+                        handleChange={setConsoleInput} 
+                        isInErrorState={!consoleIsValid}
+                    />
+                    <GenreSelect 
+                        genres={genres} 
+                        value={genreInput} 
+                        handleChange={setGenreInput} 
+                        isInErrorState={!genreIsValid} 
+                    />
                 </Stack>
                 <DateAddedPicker value={dateAddedInput} handleChange={setDateAddedInput}/>
                 <DateCompletedPicker 

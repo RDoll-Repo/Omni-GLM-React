@@ -1,7 +1,7 @@
-import { LocalizationProvider } from '@mui/x-date-pickers'
-import './App.css'
-import { RouteContent } from './RouteContent'
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { LocalizationProvider } from "@mui/x-date-pickers"
+import "./App.css"
+import { RouteContent } from "./RouteContent"
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 
 function App() {
 	return (

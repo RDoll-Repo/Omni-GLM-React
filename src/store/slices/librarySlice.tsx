@@ -22,7 +22,7 @@ const initialState = {
 
 // Temp implementation - to be full search later
 export const fetchLibrary = createAsyncThunk(
-    'oglm/library',
+    "oglm/library",
     async (_, thunkApi) => {
         try {
             const response = await fetchLibraryAsync()
@@ -36,7 +36,7 @@ export const fetchLibrary = createAsyncThunk(
 )
 
 export const fetchConsoles = createAsyncThunk(
-    'oglm/consoles',
+    "oglm/consoles",
     async (_, thunkApi) => {
         try {
             const response = await fetchConsolesAsync()
@@ -50,7 +50,7 @@ export const fetchConsoles = createAsyncThunk(
 )
 
 export const fetchGenres = createAsyncThunk(
-    'oglm/genres',
+    "oglm/genres",
     async (_, thunkApi) => {
         try {
             const response = await fetchGenresAsync()
@@ -64,7 +64,7 @@ export const fetchGenres = createAsyncThunk(
 )
 
 export const createGame = createAsyncThunk(
-    'oglm/consoles/create',
+    "oglm/consoles/create",
     async (payload: CreateGamePayload, thunkApi) => {
         try {
             const response = await createGameAsync(payload)
@@ -78,7 +78,7 @@ export const createGame = createAsyncThunk(
 )
 
 export const updateGame = createAsyncThunk(
-    'oglm/consoles/update',
+    "oglm/consoles/update",
     async (payload: {id: string, data: CreateGamePayload}, thunkApi) => {
         const { id, data } = payload
         try {
@@ -93,7 +93,7 @@ export const updateGame = createAsyncThunk(
 )
 
 export const deleteGame = createAsyncThunk(
-    'oglm/consoles/delete',
+    "oglm/consoles/delete",
     async (id: string, thunkApi) => {
         try {
             const response = await deleteGameAsync(id)
@@ -107,7 +107,7 @@ export const deleteGame = createAsyncThunk(
 )
 
 export const librarySlice = createSlice({
-    name: 'Library',
+    name: "Library",
     initialState,
     reducers: {},
     extraReducers: (builder) => {

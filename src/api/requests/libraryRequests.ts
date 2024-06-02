@@ -17,7 +17,7 @@ export const createGameAsync = async (data: CreateGamePayload) => {
     }
     
     const response = await api.post<ApiResponse<Game>>(
-        'library',
+        "library",
         payload
     )
 
